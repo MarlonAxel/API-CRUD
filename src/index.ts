@@ -2,9 +2,10 @@ import {initServer} from './server'
 import {AppDataSource} from './data-source'
 
 
+
 AppDataSource.initialize()
     .then(() => {
-        console.log("Conexão com banco de dados realizada com sucesso!")
+        console.log(`Conexão com banco de dados '${AppDataSource.options.database}' realizada com sucesso!`)
         initServer()
         
     })

@@ -31,7 +31,7 @@ export const directorList = async (request: Request, h: ResponseToolkit) =>{
         if(nome != "" ){
             const newDirector = directorRepository.create({nome: `${nome}`})
             await directorRepository.save(newDirector)
-            return h.response({data}).code(200)
+            return h.response({newDirector}).code(200)
         }
     } catch (err) {
         console.log(`Error:: ${err}`);

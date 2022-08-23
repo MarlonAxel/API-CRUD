@@ -1,5 +1,5 @@
 import { text } from "stream/consumers";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Movie } from "./Movie";
 import { Serie } from "./Serie";
 

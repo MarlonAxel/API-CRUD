@@ -1,6 +1,4 @@
 import { Request, ResponseToolkit } from "@hapi/hapi"
-import { resolve } from "path"
-import { json } from "stream/consumers"
 import { directorRepository } from "../repositories/directorRepository"
 import { movieRepository } from "../repositories/movieRepository"
 
@@ -39,11 +37,18 @@ export const newMovie = async (request: Request, h: ResponseToolkit) =>{
 //Função para buscar todos os filmes
 export const movieList = async (request: Request, h: ResponseToolkit)=>{
     
-    const movieList = await movieRepository.find()
+    const movieList = await movieRepository.find({
+        relations:{
+            diretor: true
+
+        }
+    })
+    
+    
     try {
         if(movieList.length == 0){return h.response({message:"Não existe nenhum filme cadastrado!"}).code(201)}
 
-        return h.response({message: `Lista de filmes encontrados: Quantidade ${movieList.length}`, Filmes: movieList}).code(201)
+        return h.response({message: 'Lista de filmes encontrados', Quantidade: movieList.length, Filmes: movieList}).code(201)
     } catch (err) {
         console.log(`Error:: ${err}`);
     }
@@ -63,7 +68,7 @@ export const editMovie = async (request: Request, h: ResponseToolkit)=>{
         return h.response({message:"Filme não encontrado!"}).code(404)
         
     await movieRepository.update(id_movie,{titulo, genero})
-    return h.response(movieSelected).code(200)
+    return h.response(data).code(200)
     
 }
 
@@ -71,7 +76,7 @@ export const editMovie = async (request: Request, h: ResponseToolkit)=>{
 export const deleteMovie = async (request: Request, h: ResponseToolkit)=>{
     
     const {id_movie} = request.params
-    const movieSelected = await movieRepository.findOneBy({id:id_movie});
+    const movieSelected = await movieRepository.findOneBy({ id:id_movie });
     if (!movieSelected) 
         return h.response({message:`Filme com id '${id_movie}' não foi encontrado!`}).code(404)
 

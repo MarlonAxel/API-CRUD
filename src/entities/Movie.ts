@@ -14,8 +14,11 @@ export class Movie {
     @Column({type:'text'})
     genero:string;
 
-    // @Column({type:Number, nullable: true})
-    // ano_lancamento: number
+    @Column({type:Number, nullable: true})
+    ano_lancamento: number
+
+    @Column({type:'text', nullable: true})
+    duracao: string
 
     @UpdateDateColumn()
     createdAt:Date;

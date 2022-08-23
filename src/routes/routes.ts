@@ -13,7 +13,7 @@ export const routes = (server: Server)=>{
     })
     server.route({
         method: 'POST',
-        path: '/create', 
+        path: '/director', 
         handler: newDirector
     })
     server.route({

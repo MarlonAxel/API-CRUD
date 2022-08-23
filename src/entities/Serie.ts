@@ -1,4 +1,4 @@
-import { text } from "stream/consumers";
+
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Director } from "./Director";
 
@@ -17,8 +17,8 @@ export class Serie {
     @Column({type:Number})
     qtd_temporada:number;
 
-    // @Column({type:Number, nullable: true})
-    // ano_lancamento: number
+    @Column({type:Number, nullable: true})
+    ano_lancamento: number
    
     @UpdateDateColumn()
     createdAt:Date;
@@ -29,4 +29,5 @@ export class Serie {
     @ManyToOne(()=>Director, director => director.serie)
     @JoinColumn({name:'id_diretor'})
     diretor: Director;
+    
 }

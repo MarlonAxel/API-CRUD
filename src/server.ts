@@ -1,21 +1,22 @@
-const {Server} = require('@hapi/hapi')
+const Hapi = require('@hapi/hapi')
 const {routes} = require( './routes/routes')
-// import dotenv = require('dotenv')
-// import express = require('express')
+import dotenv = require('dotenv')
+import express = require('express')
 
 
-// dotenv.config()
+dotenv.config()
 
 
 // servidor utilizando hapiJs
 export const initServer = async ()=>{
-    const server = new Server({
+    const server = new Hapi.Server({
         port: process.env.PORT || 3000,
         host: process.env.HOST || 'localhost'
     });
 
     routes(server)
 
+    
     await server.start();
     console.log(`Servidor rodando em:: ${server.info.uri}`);
 
